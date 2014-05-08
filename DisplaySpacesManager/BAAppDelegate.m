@@ -15,4 +15,12 @@
     // Insert code here to initialize your application
 }
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+{
+    [[self window] makeKeyAndOrderFront:self];
+    
+    return NO;
+}
+
+
 @end
