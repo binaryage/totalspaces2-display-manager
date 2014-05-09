@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A866E30191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
+		3A866E31191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
 		3ACF23171902BBD4004E4B91 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF23161902BBD4004E4B91 /* Cocoa.framework */; };
 		3ACF23211902BBD4004E4B91 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF231F1902BBD4004E4B91 /* InfoPlist.strings */; };
 		3ACF23231902BBD4004E4B91 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF23221902BBD4004E4B91 /* main.m */; };
@@ -18,8 +20,6 @@
 		3ACF23371902BBD4004E4B91 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF23161902BBD4004E4B91 /* Cocoa.framework */; };
 		3ACF233F1902BBD4004E4B91 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF233D1902BBD4004E4B91 /* InfoPlist.strings */; };
 		3ACF23411902BBD4004E4B91 /* DisplaySpacesManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF23401902BBD4004E4B91 /* DisplaySpacesManagerTests.m */; };
-		3ACF23551902CB3D004E4B91 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF23541902CB3D004E4B91 /* libtotalspaces2api.dylib */; };
-		3ACF23561902CB45004E4B91 /* libtotalspaces2api.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3ACF23541902CB3D004E4B91 /* libtotalspaces2api.dylib */; };
 		3ACF23591902D5A7004E4B91 /* BAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF23581902D5A7004E4B91 /* BAMainViewController.m */; };
 		3ACF235C1903D926004E4B91 /* BASpacesConfigs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF235B1903D926004E4B91 /* BASpacesConfigs.m */; };
 		3ACF235F1903FC8A004E4B91 /* BATotalSpaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF235E1903FC8A004E4B91 /* BATotalSpaces.m */; };
@@ -42,13 +42,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3ACF23561902CB45004E4B91 /* libtotalspaces2api.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtotalspaces2api.dylib; sourceTree = "<group>"; };
+		3A866E32191D068A00D8AD11 /* TSLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSLib.h; sourceTree = "<group>"; };
 		3ACF23131902BBD4004E4B91 /* DisplaySpacesManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisplaySpacesManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ACF23161902BBD4004E4B91 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3ACF23191902BBD4004E4B91 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -68,8 +69,6 @@
 		3ACF233C1902BBD4004E4B91 /* DisplaySpacesManagerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DisplaySpacesManagerTests-Info.plist"; sourceTree = "<group>"; };
 		3ACF233E1902BBD4004E4B91 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3ACF23401902BBD4004E4B91 /* DisplaySpacesManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisplaySpacesManagerTests.m; sourceTree = "<group>"; };
-		3ACF234C1902BC24004E4B91 /* TSLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSLib.h; path = "../../../totalspaces2-api/ruby/lib/TSLib.h"; sourceTree = "<group>"; };
-		3ACF23541902CB3D004E4B91 /* libtotalspaces2api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtotalspaces2api.dylib; path = "../../totalspaces2-api/ruby/lib/libtotalspaces2api.dylib"; sourceTree = "<group>"; };
 		3ACF23571902D5A7004E4B91 /* BAMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAMainViewController.h; sourceTree = "<group>"; };
 		3ACF23581902D5A7004E4B91 /* BAMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAMainViewController.m; sourceTree = "<group>"; };
 		3ACF235A1903D926004E4B91 /* BASpacesConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASpacesConfigs.h; sourceTree = "<group>"; };
@@ -83,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ACF23551902CB3D004E4B91 /* libtotalspaces2api.dylib in Frameworks */,
+				3A866E30191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */,
 				3ACF23171902BBD4004E4B91 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,6 +93,7 @@
 			files = (
 				3ACF23371902BBD4004E4B91 /* Cocoa.framework in Frameworks */,
 				3ACF23361902BBD4004E4B91 /* XCTest.framework in Frameworks */,
+				3A866E31191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +122,7 @@
 		3ACF23151902BBD4004E4B91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3ACF23541902CB3D004E4B91 /* libtotalspaces2api.dylib */,
+				3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */,
 				3ACF23161902BBD4004E4B91 /* Cocoa.framework */,
 				3ACF23351902BBD4004E4B91 /* XCTest.framework */,
 				3ACF23181902BBD4004E4B91 /* Other Frameworks */,
@@ -153,7 +153,7 @@
 				3ACF235B1903D926004E4B91 /* BASpacesConfigs.m */,
 				3ACF232B1902BBD4004E4B91 /* MainMenu.xib */,
 				3ACF232E1902BBD4004E4B91 /* Images.xcassets */,
-				3ACF234C1902BC24004E4B91 /* TSLib.h */,
+				3A866E32191D068A00D8AD11 /* TSLib.h */,
 				3ACF231D1902BBD4004E4B91 /* Supporting Files */,
 			);
 			path = DisplaySpacesManager;
@@ -490,6 +490,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "DisplaySpacesManagerTests/DisplaySpacesManagerTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -508,6 +512,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DisplaySpacesManager/DisplaySpacesManager-Prefix.pch";
 				INFOPLIST_FILE = "DisplaySpacesManagerTests/DisplaySpacesManagerTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -533,6 +541,7 @@
 				3ACF23461902BBD4004E4B91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3ACF23471902BBD4004E4B91 /* Build configuration list for PBXNativeTarget "DisplaySpacesManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -541,6 +550,7 @@
 				3ACF23491902BBD4004E4B91 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
