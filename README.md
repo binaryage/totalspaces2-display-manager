@@ -1,5 +1,5 @@
-totalspaces2-display-manager
-============================
+TotalSpaces2 Display Spaces Manager
+===================================
 
 Small app to manage which display spaces are on
 
