@@ -11,6 +11,7 @@
 		3A866E31191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
 		3A866E39191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
 		3A866E3A191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
+		3A866E3B191D3F7100D8AD11 /* libtotalspaces2api.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
 		3ACF23171902BBD4004E4B91 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF23161902BBD4004E4B91 /* Cocoa.framework */; };
 		3ACF23211902BBD4004E4B91 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF231F1902BBD4004E4B91 /* InfoPlist.strings */; };
 		3ACF23231902BBD4004E4B91 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF23221902BBD4004E4B91 /* main.m */; };
@@ -44,6 +45,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3A866E3B191D3F7100D8AD11 /* libtotalspaces2api.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
