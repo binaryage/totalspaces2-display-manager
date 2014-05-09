@@ -8,6 +8,7 @@
 
 #import "BATotalSpaces.h"
 #import "TSLib.h"
+#import "BAMainViewController.h"
 
 @implementation BATotalSpaces
 
@@ -95,7 +96,7 @@
             NSNumber *fromDisplayNumber = spaceDisplays[spaceUUID];
             NSNumber *fromPosition = spacePositions[spaceUUID];
             if (!fromDisplayNumber || !fromPosition) {
-                NSLog(@"Space %@ does not exist", spaceUUID);
+                [BAMainViewController logMessage:[NSString stringWithFormat:@"Space %@ does not exist", spaceUUID]];
                 continue;
             }
             
@@ -103,11 +104,11 @@
             if (fromDisplayID != targetDisplayID) {
                 unsigned int currentSpace = tsapi_currentSpaceNumberOnDisplay(fromDisplayID);
                 if (currentSpace == [fromPosition unsignedIntValue]) {
-                    NSLog(@"Can't move current space");
+                    [BAMainViewController logMessage:@"Can't move current space"];
                 } else {
-                    NSLog(@"Moving space %@ from display %d to display %d position %d", spaceUUID, fromDisplayID, targetDisplayID, targetPosition);
+                    [BAMainViewController logMessage:[NSString stringWithFormat:@"Moving space %@ from display %d to display %d position %d", spaceUUID, fromDisplayID, targetDisplayID, targetPosition]];
                     BOOL result = tsapi_moveSpaceOnDisplayToPositionOnDisplay([fromPosition unsignedIntValue], fromDisplayID, targetPosition, targetDisplayID);
-                    if (!result) NSLog(@"Move failed");
+                    if (!result) [BAMainViewController logMessage:@"Move failed"];
                 }
             }
             targetPosition++;
@@ -143,7 +144,7 @@
     tsapi_freeString(libVersion);
     tsapi_freeString(apiVersion);
     
-    if (!result) NSLog(@"Library failed version check, please upgrade TotalSpaces2");
+    if (!result) [BAMainViewController logMessage:@"Library failed version check, please upgrade TotalSpaces2"];
     
     return result;
 }

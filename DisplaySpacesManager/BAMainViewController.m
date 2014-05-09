@@ -7,10 +7,20 @@
 //
 
 #import "BAMainViewController.h"
+#import "BAAppDelegate.h"
 #import "BASpacesConfigs.h"
 #import "BATotalSpaces.h"
+#import "BALogView.h"
 
 @implementation BAMainViewController
+
+static BAMainViewController *mainController;
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    mainController = self;
+    return [super initWithCoder:aDecoder];
+}
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
@@ -44,7 +54,7 @@
         [buttonCell setBezelStyle:NSRoundedBezelStyle];
         [buttonCell setControlSize:NSSmallControlSize];
         [buttonCell setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]];
-        [buttonCell setTitle:@"Restore config"];
+        [buttonCell setTitle:@"Restore"];
         [buttonCell setTarget:self];
         [buttonCell setAction:@selector(restoreButtonPushed:)];
         buttonCell.tag = row;
@@ -74,7 +84,14 @@
     NSString *name = names[row];
     NSDictionary *selectedConfig = [[BASpacesConfigs instance] configWithName:name];
 
-    [[BATotalSpaces instance] restoreConfig:selectedConfig error:nil];
+    NSError *error = nil;
+    [[BATotalSpaces instance] restoreConfig:selectedConfig error:&error];
+    
+    if (error) {
+        [self.logView addMessage:[error localizedDescription]];
+    } else {
+        [BAMainViewController logMessage:@"Restored"];
+    }
 }
 
 // see http://stackoverflow.com/questions/7387341/how-to-create-and-get-return-value-from-cocoa-dialog
@@ -110,9 +127,15 @@
     if (name) {
         NSDictionary *currentConfig = [[BATotalSpaces instance] currentConfig];
         [[BASpacesConfigs instance] save:name config:currentConfig];
+        [BAMainViewController logMessage:@"Saved"];
     }
     
     [self.configsTable reloadData];
+}
+
++ (void)logMessage:(NSString *)message
+{
+    [mainController.logView addMessage:message];
 }
 
 @end

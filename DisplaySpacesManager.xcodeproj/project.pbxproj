@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3A866E30191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
 		3A866E31191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
+		3A866E39191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
+		3A866E3A191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
 		3ACF23171902BBD4004E4B91 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF23161902BBD4004E4B91 /* Cocoa.framework */; };
 		3ACF23211902BBD4004E4B91 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF231F1902BBD4004E4B91 /* InfoPlist.strings */; };
 		3ACF23231902BBD4004E4B91 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF23221902BBD4004E4B91 /* main.m */; };
@@ -50,6 +52,8 @@
 /* Begin PBXFileReference section */
 		3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtotalspaces2api.dylib; sourceTree = "<group>"; };
 		3A866E32191D068A00D8AD11 /* TSLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSLib.h; sourceTree = "<group>"; };
+		3A866E37191D289D00D8AD11 /* BALogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BALogView.h; sourceTree = "<group>"; };
+		3A866E38191D289D00D8AD11 /* BALogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BALogView.m; sourceTree = "<group>"; };
 		3ACF23131902BBD4004E4B91 /* DisplaySpacesManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisplaySpacesManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ACF23161902BBD4004E4B91 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3ACF23191902BBD4004E4B91 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -147,6 +151,8 @@
 				3ACF23291902BBD4004E4B91 /* BAAppDelegate.m */,
 				3ACF23571902D5A7004E4B91 /* BAMainViewController.h */,
 				3ACF23581902D5A7004E4B91 /* BAMainViewController.m */,
+				3A866E37191D289D00D8AD11 /* BALogView.h */,
+				3A866E38191D289D00D8AD11 /* BALogView.m */,
 				3ACF235D1903FC8A004E4B91 /* BATotalSpaces.h */,
 				3ACF235E1903FC8A004E4B91 /* BATotalSpaces.m */,
 				3ACF235A1903D926004E4B91 /* BASpacesConfigs.h */,
@@ -310,6 +316,7 @@
 				3ACF232A1902BBD4004E4B91 /* BAAppDelegate.m in Sources */,
 				3ACF23591902D5A7004E4B91 /* BAMainViewController.m in Sources */,
 				3ACF235C1903D926004E4B91 /* BASpacesConfigs.m in Sources */,
+				3A866E39191D289D00D8AD11 /* BALogView.m in Sources */,
 				3ACF235F1903FC8A004E4B91 /* BATotalSpaces.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A866E3A191D289D00D8AD11 /* BALogView.m in Sources */,
 				3ACF23411902BBD4004E4B91 /* DisplaySpacesManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
