@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13D61" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="14A283o" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
     </dependencies>
@@ -63,6 +63,31 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Window" id="xXh-La-a6e">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Window" systemMenu="window" id="YMK-CH-ix2">
+                        <items>
+                            <menuItem title="Minimize" keyEquivalent="m" id="vtY-0p-5vh">
+                                <connections>
+                                    <action selector="performMiniaturize:" target="-1" id="6Ed-WP-Y2z"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom" id="omn-Uq-3va">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="performZoom:" target="-1" id="Fqg-hx-mf3"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="t2W-iN-oCt"/>
+                            <menuItem title="Bring All to Front" id="4rX-0L-jF6">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="arrangeInFront:" target="-1" id="hPP-Bl-fvC"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="Help" id="wpr-3q-Mcd">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
@@ -81,12 +106,12 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="546" height="464"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="546" height="464"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71g-jx-RbA">
+                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="71g-jx-RbA">
                         <rect key="frame" x="14" y="416" width="162" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Save current config" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="O7i-d5-VSH">
@@ -97,15 +122,15 @@
                             <action selector="saveButtonPressed:" target="BgY-xU-uC1" id="aop-Ed-qPl"/>
                         </connections>
                     </button>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dco-oA-qLh">
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dco-oA-qLh">
                         <rect key="frame" x="20" y="176" width="506" height="227"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="yjE-kc-6oi">
-                            <rect key="frame" x="1" y="17" width="504" height="194"/>
+                        <clipView key="contentView" id="yjE-kc-6oi">
+                            <rect key="frame" x="1" y="17" width="504" height="209"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="CbN-ox-zid" id="30D-sn-Ryr">
-                                    <rect key="frame" x="0.0" y="0.0" width="505" height="194"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="504" height="209"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -137,7 +162,7 @@
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         </tableColumn>
-                                        <tableColumn width="88.0625" minWidth="40" maxWidth="1000" id="l6b-UH-u4h">
+                                        <tableColumn width="87.0625" minWidth="40" maxWidth="1000" id="l6b-UH-u4h">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -159,8 +184,8 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="kTv-NS-Mpo">
-                            <rect key="frame" x="1" y="211" width="504" height="15"/>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="kTv-NS-Mpo">
+                            <rect key="frame" x="-7" y="2" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="ahT-wT-PcP">
@@ -168,26 +193,26 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="CbN-ox-zid">
-                            <rect key="frame" x="0.0" y="0.0" width="505" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="504" height="17"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
-                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enN-rG-tR7" customClass="BALogView">
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enN-rG-tR7" customClass="BALogView">
                         <rect key="frame" x="20" y="20" width="506" height="135"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <clipView key="contentView" ambiguous="YES" misplaced="YES" id="Noh-TQ-lKU">
+                        <clipView key="contentView" id="Noh-TQ-lKU">
                             <rect key="frame" x="1" y="1" width="489" height="133"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView ambiguous="YES" importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="4rj-2T-bqS">
+                                <textView importsGraphics="NO" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="4rj-2T-bqS">
                                     <rect key="frame" x="0.0" y="0.0" width="489" height="133"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="489" height="133"/>
-                                    <size key="maxSize" width="496" height="10000000"/>
+                                    <size key="maxSize" width="506" height="10000000"/>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="489" height="133"/>
-                                    <size key="maxSize" width="496" height="10000000"/>
+                                    <size key="maxSize" width="506" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -202,6 +227,19 @@
                         </scroller>
                     </scrollView>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="enN-rG-tR7" secondAttribute="trailing" constant="20" symbolic="YES" id="5DR-4I-PKS"/>
+                    <constraint firstItem="Dco-oA-qLh" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="61" id="7EQ-cF-edp"/>
+                    <constraint firstItem="enN-rG-tR7" firstAttribute="leading" secondItem="Dco-oA-qLh" secondAttribute="leading" id="Dz8-iX-BTF"/>
+                    <constraint firstItem="enN-rG-tR7" firstAttribute="trailing" secondItem="Dco-oA-qLh" secondAttribute="trailing" id="HIQ-Ec-hXY"/>
+                    <constraint firstItem="Dco-oA-qLh" firstAttribute="top" secondItem="71g-jx-RbA" secondAttribute="bottom" constant="20" symbolic="YES" id="KZ9-iE-dgs"/>
+                    <constraint firstItem="enN-rG-tR7" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="309" id="R9m-9y-jwC"/>
+                    <constraint firstItem="enN-rG-tR7" firstAttribute="leading" secondItem="71g-jx-RbA" secondAttribute="leading" id="bzX-mZ-4Zw"/>
+                    <constraint firstAttribute="trailing" secondItem="Dco-oA-qLh" secondAttribute="trailing" constant="20" id="gtJ-bt-qHM"/>
+                    <constraint firstAttribute="bottom" secondItem="enN-rG-tR7" secondAttribute="bottom" constant="20" symbolic="YES" id="hwt-kY-iJG"/>
+                    <constraint firstItem="enN-rG-tR7" firstAttribute="top" secondItem="Dco-oA-qLh" secondAttribute="bottom" constant="21" id="k0F-Z9-OWw"/>
+                    <constraint firstItem="enN-rG-tR7" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="t1K-n8-i7k"/>
+                </constraints>
             </view>
         </window>
         <viewController nibName="MainMenu" id="BgY-xU-uC1" customClass="BAMainViewController">
