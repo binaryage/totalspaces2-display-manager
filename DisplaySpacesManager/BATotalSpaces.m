@@ -53,8 +53,6 @@
 {
     if (![self versionCheck]) return;
 
-    NSDictionary *currentConfig = [self currentConfig];
-    
     NSArray *displayIDs = [self displayIDs];
 
     // Check that all the required displays are currently attached
@@ -69,21 +67,7 @@
         }
     }
     
-    // Prepare a lookup for which display each space is currently on,
-    // and which number it is
-    NSMutableDictionary *spaceDisplays = [NSMutableDictionary dictionary];
-    NSMutableDictionary *spacePositions = [NSMutableDictionary dictionary];
-    for (NSString *displayID in currentConfig) {
-        NSArray *spaces = currentConfig[displayID];
 
-        unsigned int position = 1;
-        
-        for (NSString *spaceUUID in spaces) {
-            spaceDisplays[spaceUUID] = @([displayID intValue]);
-            spacePositions[spaceUUID] = @(position);
-            position++;
-        }
-    }
     
     // Move the spaces
     for (NSString *displayID in config) {
@@ -93,6 +77,25 @@
         unsigned int targetPosition = 1;
 
         for (NSString *spaceUUID in spaces) {
+            
+            NSDictionary *currentConfig = [self currentConfig];
+            
+            // Prepare a lookup for which display each space is currently on,
+            // and which number it is
+            NSMutableDictionary *spaceDisplays = [NSMutableDictionary dictionary];
+            NSMutableDictionary *spacePositions = [NSMutableDictionary dictionary];
+            for (NSString *displayID in currentConfig) {
+                NSArray *spaces = currentConfig[displayID];
+                
+                unsigned int position = 1;
+                
+                for (NSString *spaceUUID in spaces) {
+                    spaceDisplays[spaceUUID] = @([displayID intValue]);
+                    spacePositions[spaceUUID] = @(position);
+                    position++;
+                }
+            }
+            
             NSNumber *fromDisplayNumber = spaceDisplays[spaceUUID];
             NSNumber *fromPosition = spacePositions[spaceUUID];
             if (!fromDisplayNumber || !fromPosition) {
