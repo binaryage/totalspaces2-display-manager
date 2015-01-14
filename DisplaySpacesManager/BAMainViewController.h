@@ -15,6 +15,7 @@
 @property (weak) IBOutlet NSButtonCell *saveButton;
 @property (weak) IBOutlet NSTableView *configsTable;
 @property (weak) IBOutlet NSTableColumn *rightColumn;
+@property (weak) IBOutlet NSTableColumn *farRightColumn;
 @property (weak) IBOutlet NSTableColumn *midColumn;
 @property (weak) IBOutlet BALogView *logView;
 

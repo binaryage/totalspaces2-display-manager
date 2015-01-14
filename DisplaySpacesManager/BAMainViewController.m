@@ -30,7 +30,7 @@ static BAMainViewController *mainController;
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-    if (aTableColumn == self.rightColumn) return @"";
+    if (aTableColumn == self.rightColumn || aTableColumn == self.farRightColumn) return @"";
 
     NSArray *names = [[BASpacesConfigs instance] configNames];
     if (rowIndex >= [names count]) return @"??";
@@ -57,6 +57,18 @@ static BAMainViewController *mainController;
         [buttonCell setTitle:@"Restore"];
         [buttonCell setTarget:self];
         [buttonCell setAction:@selector(restoreButtonPushed:)];
+        buttonCell.tag = row;
+        
+        return buttonCell;
+    } else if (tableColumn == self.farRightColumn) {
+        NSButtonCell *buttonCell = [[NSButtonCell alloc] init];
+        [buttonCell setButtonType:NSMomentaryPushInButton];
+        [buttonCell setBezelStyle:NSRoundedBezelStyle];
+        [buttonCell setControlSize:NSSmallControlSize];
+        [buttonCell setFont:[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]]];
+        [buttonCell setTitle:@"Delete"];
+        [buttonCell setTarget:self];
+        [buttonCell setAction:@selector(deleteButtonPushed:)];
         buttonCell.tag = row;
         
         return buttonCell;
@@ -91,6 +103,21 @@ static BAMainViewController *mainController;
         [self.logView addMessage:[error localizedDescription]];
     } else {
         [BAMainViewController logMessage:@"Restored"];
+    }
+}
+
+- (void)deleteButtonPushed:(NSTableView *)tableView
+{
+    NSUInteger row = tableView.selectedTag;
+    NSArray *names = [[BASpacesConfigs instance] configNames];
+    if (row >= [names count]) return;
+    NSString *name = names[row];
+    NSDictionary *selectedConfig = [[BASpacesConfigs instance] configWithName:name];
+    
+    if (selectedConfig) {
+        [[BASpacesConfigs instance] delete:name];
+        [self.configsTable reloadData];
+        [BAMainViewController logMessage:@"Deleted"];
     }
 }
 

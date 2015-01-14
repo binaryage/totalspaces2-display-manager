@@ -36,13 +36,30 @@
     NSMutableDictionary *mutableConfigs = [NSMutableDictionary dictionaryWithDictionary:configs];
     mutableConfigs[name] = config;
     
+    [self writeConfigs:mutableConfigs];
+}
+
+- (void)writeConfigs:(NSDictionary *)configs
+{
     NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:mutableConfigs options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:configs options:NSJSONWritingPrettyPrinted error:&error];
     
     if (!error) {
         [jsonData writeToFile:[BA_CONFIG_FILE stringByExpandingTildeInPath] atomically:YES];
-        self.cachedConfigs = mutableConfigs;
+        self.cachedConfigs = configs;
     }
+}
+
+- (void)delete:(NSString *)name
+{
+    if (!name) return;
+    
+    NSDictionary *configs = [self readConfigs];
+    
+    NSMutableDictionary *mutableConfigs = [NSMutableDictionary dictionaryWithDictionary:configs];
+    [mutableConfigs removeObjectForKey:name];
+    
+    [self writeConfigs:mutableConfigs];
 }
 
 - (NSDictionary *)configWithName:(NSString *)name

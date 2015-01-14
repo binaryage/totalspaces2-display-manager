@@ -16,6 +16,8 @@
 
 - (void)save:(NSString *)name config:(NSDictionary *)config;
 
+- (void)delete:(NSString *)name;
+
 - (NSDictionary *)configWithName:(NSString *)name;
 
 - (NSArray *)configNames;
