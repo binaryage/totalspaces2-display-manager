@@ -108,9 +108,17 @@ NSDictionary *currentBindings()
 
 - (void)restoreConfig:(NSDictionary *)config error:(NSError **)error
 {
-    if (![self versionCheck]) return;
+    if (![self versionCheck]) {
+        *error = [NSError errorWithDomain:@"com.binaryage.DisplaySpacesManager" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Cannot continue with restore", nil)}];
+        return;
+    }
 
     NSArray *displayIDs = [self displayIDs];
+
+    if (displayIDs.count != config.count) {
+        *error = [NSError errorWithDomain:@"com.binaryage.DisplaySpacesManager" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"This config has a different number of displays than currently attached", nil)}];
+        return;
+    }
 
     // Check that all the required displays are currently attached
     for (NSString *displayID in config) {
@@ -227,19 +235,17 @@ NSDictionary *currentBindings()
     return displayIDs;
 }
 
+#define TS_MIN_API_VERSION @"2.1"
+
 - (BOOL)versionCheck
 {
-    char *libVersion = (char *)tsapi_libTotalSpacesVersion();
-    
     char *apiVersion = (char *)tsapi_apiVersion();
-    
+    NSString *apiVersionString = [NSString stringWithFormat:@"%s", apiVersion];
+    tsapi_freeString(apiVersion);
+
     BOOL result = NO;
     
-    // cheap check, ok for versions < 10
-    if (*libVersion == *apiVersion) result = YES;
-    
-    tsapi_freeString(libVersion);
-    tsapi_freeString(apiVersion);
+    if ([TS_MIN_API_VERSION compare:apiVersionString options:NSNumericSearch] == NSOrderedAscending) result = YES;
     
     if (!result) [BAMainViewController logMessage:@"Library failed version check, please upgrade TotalSpaces2"];
     
