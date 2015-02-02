@@ -7,6 +7,7 @@
 //
 
 #import "BASpacesConfigs.h"
+#import "BASpacesConfig.h"
 
 @interface BASpacesConfigs ()
 
@@ -42,7 +43,17 @@
 - (void)writeConfigs:(NSDictionary *)configs
 {
     NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:configs options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSString *name in configs) {
+        NSDictionary *spacesConfigs = configs[name];
+        dict[name] = [NSMutableDictionary dictionary];
+        for (NSNumber *display in spacesConfigs) {
+            BASpacesConfig *config = spacesConfigs[display];
+            dict[name][display] = [config jsonDict];
+        }
+    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     
     if (!error) {
         [jsonData writeToFile:[BA_CONFIG_FILE stringByExpandingTildeInPath] atomically:YES];
@@ -91,13 +102,30 @@
     if (!jsonData) jsonData = [NSData dataWithBytes:"{}" length:2];
 
     NSError *error = nil;
-    id object = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
     
-    if (error || ![object isKindOfClass:[NSDictionary class]]) {
-        object = [NSDictionary dictionary];
+    if (error || ![jsonDict isKindOfClass:[NSDictionary class]]) {
+        jsonDict = [NSDictionary dictionary];
     }
     
-    return object;
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSString *name in jsonDict) {
+        NSDictionary *configDict = jsonDict[name];
+        if (configDict && [configDict isKindOfClass:[NSDictionary class]]) {
+            dict[name] = [NSMutableDictionary dictionary];
+            for (NSString *display in configDict) {
+                NSDictionary *spacesDict = configDict[display];
+                if (spacesDict && [spacesDict isKindOfClass:[NSDictionary class]]) {
+                    BASpacesConfig *config = [[BASpacesConfig alloc] initWithDictionary:spacesDict];
+                    if (config) {
+                        dict[name][display] = config;
+                    }
+                }
+            }
+        }
+    }
+    
+    return dict;
 }
 
 @end

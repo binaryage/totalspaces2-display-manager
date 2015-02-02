@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A866E30191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
-		3A866E31191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
+		3A302D811A7BBED400086599 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A302D801A7BBED400086599 /* libtotalspaces2api.dylib */; };
+		3A302D821A7BBEDB00086599 /* libtotalspaces2api.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A302D801A7BBED400086599 /* libtotalspaces2api.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3A866E39191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
 		3A866E3A191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
-		3A866E3B191D3F7100D8AD11 /* libtotalspaces2api.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */; };
 		3ACF23171902BBD4004E4B91 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF23161902BBD4004E4B91 /* Cocoa.framework */; };
 		3ACF23211902BBD4004E4B91 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3ACF231F1902BBD4004E4B91 /* InfoPlist.strings */; };
 		3ACF23231902BBD4004E4B91 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF23221902BBD4004E4B91 /* main.m */; };
@@ -26,6 +25,7 @@
 		3ACF23591902D5A7004E4B91 /* BAMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF23581902D5A7004E4B91 /* BAMainViewController.m */; };
 		3ACF235C1903D926004E4B91 /* BASpacesConfigs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF235B1903D926004E4B91 /* BASpacesConfigs.m */; };
 		3ACF235F1903FC8A004E4B91 /* BATotalSpaces.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ACF235E1903FC8A004E4B91 /* BATotalSpaces.m */; };
+		3AFD390C1A66B1440021E4D5 /* BASpacesConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFD390B1A66B1440021E4D5 /* BASpacesConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +45,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3A866E3B191D3F7100D8AD11 /* libtotalspaces2api.dylib in CopyFiles */,
+				3A302D821A7BBEDB00086599 /* libtotalspaces2api.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtotalspaces2api.dylib; sourceTree = "<group>"; };
+		3A302D801A7BBED400086599 /* libtotalspaces2api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtotalspaces2api.dylib; sourceTree = "<group>"; };
 		3A866E32191D068A00D8AD11 /* TSLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSLib.h; sourceTree = "<group>"; };
 		3A866E37191D289D00D8AD11 /* BALogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BALogView.h; sourceTree = "<group>"; };
 		3A866E38191D289D00D8AD11 /* BALogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BALogView.m; sourceTree = "<group>"; };
@@ -81,6 +81,9 @@
 		3ACF235B1903D926004E4B91 /* BASpacesConfigs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASpacesConfigs.m; sourceTree = "<group>"; };
 		3ACF235D1903FC8A004E4B91 /* BATotalSpaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BATotalSpaces.h; sourceTree = "<group>"; };
 		3ACF235E1903FC8A004E4B91 /* BATotalSpaces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BATotalSpaces.m; sourceTree = "<group>"; };
+		3AFD39091A6459000021E4D5 /* private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = private.h; sourceTree = "<group>"; };
+		3AFD390A1A66B1440021E4D5 /* BASpacesConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BASpacesConfig.h; sourceTree = "<group>"; };
+		3AFD390B1A66B1440021E4D5 /* BASpacesConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BASpacesConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A866E30191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */,
+				3A302D811A7BBED400086599 /* libtotalspaces2api.dylib in Frameworks */,
 				3ACF23171902BBD4004E4B91 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,7 +102,6 @@
 			files = (
 				3ACF23371902BBD4004E4B91 /* Cocoa.framework in Frameworks */,
 				3ACF23361902BBD4004E4B91 /* XCTest.framework in Frameworks */,
-				3A866E31191D066800D8AD11 /* libtotalspaces2api.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +130,7 @@
 		3ACF23151902BBD4004E4B91 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3A866E2F191D066800D8AD11 /* libtotalspaces2api.dylib */,
+				3A302D801A7BBED400086599 /* libtotalspaces2api.dylib */,
 				3ACF23161902BBD4004E4B91 /* Cocoa.framework */,
 				3ACF23351902BBD4004E4B91 /* XCTest.framework */,
 				3ACF23181902BBD4004E4B91 /* Other Frameworks */,
@@ -159,6 +161,9 @@
 				3ACF235E1903FC8A004E4B91 /* BATotalSpaces.m */,
 				3ACF235A1903D926004E4B91 /* BASpacesConfigs.h */,
 				3ACF235B1903D926004E4B91 /* BASpacesConfigs.m */,
+				3AFD390A1A66B1440021E4D5 /* BASpacesConfig.h */,
+				3AFD390B1A66B1440021E4D5 /* BASpacesConfig.m */,
+				3AFD39091A6459000021E4D5 /* private.h */,
 				3ACF232B1902BBD4004E4B91 /* MainMenu.xib */,
 				3ACF232E1902BBD4004E4B91 /* Images.xcassets */,
 				3A866E32191D068A00D8AD11 /* TSLib.h */,
@@ -244,7 +249,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = BA;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Binaryage;
 				TargetAttributes = {
 					3ACF23331902BBD4004E4B91 = {
@@ -319,6 +324,7 @@
 				3ACF23591902D5A7004E4B91 /* BAMainViewController.m in Sources */,
 				3ACF235C1903D926004E4B91 /* BASpacesConfigs.m in Sources */,
 				3A866E39191D289D00D8AD11 /* BALogView.m in Sources */,
+				3AFD390C1A66B1440021E4D5 /* BASpacesConfig.m in Sources */,
 				3ACF235F1903FC8A004E4B91 /* BATotalSpaces.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

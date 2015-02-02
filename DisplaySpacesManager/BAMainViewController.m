@@ -9,6 +9,7 @@
 #import "BAMainViewController.h"
 #import "BAAppDelegate.h"
 #import "BASpacesConfigs.h"
+#import "BASpacesConfig.h"
 #import "BATotalSpaces.h"
 #import "BALogView.h"
 
@@ -153,8 +154,11 @@ static BAMainViewController *mainController;
     }
     if (name) {
         NSDictionary *currentConfig = [[BATotalSpaces instance] currentConfig];
-        [[BASpacesConfigs instance] save:name config:currentConfig];
-        [BAMainViewController logMessage:@"Saved"];
+        if (!currentConfig) [BAMainViewController logMessage:@"Error reading current config"];
+        else {
+            [[BASpacesConfigs instance] save:name config:currentConfig];
+            [BAMainViewController logMessage:@"Saved"];
+        }
     }
     
     [self.configsTable reloadData];

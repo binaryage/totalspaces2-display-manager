@@ -9,6 +9,8 @@
 #import "BATotalSpaces.h"
 #import "TSLib.h"
 #import "BAMainViewController.h"
+#import "BASpacesConfig.h"
+#import "private.h"
 
 @implementation BATotalSpaces
 
@@ -23,6 +25,33 @@
 	return totalSpaces;
 }
 
+// Regular spaces only, not fullscreen or dashboard
+// Each space is an array of [uuid, spaceNumber]
+//
+NSArray *currentSpaceUUIDs(CGDirectDisplayID displayID)
+{
+    NSMutableArray *spaces = [NSMutableArray array];
+    unsigned int numSpaces = tsapi_numberOfSpacesOnDisplay(displayID);
+    for (int i=1; i<= numSpaces; i++) {
+        char *spaceUUID = (char *)tsapi_uuidForSpaceNumberOnDisplay(i, displayID);
+        NSUInteger type = tsapi_spaceTypeForSpaceNumberOnDisplay(i, displayID);
+        if (spaceUUID && type == SpaceTypeDesktop) {
+            [spaces addObject:@[[NSString stringWithFormat:@"%s", spaceUUID], @(i)]];
+            tsapi_freeString(spaceUUID);
+        }
+    }
+    return spaces;
+}
+
+NSDictionary *currentBindings()
+{
+    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *spacesDefaults = [standardDefaults persistentDomainForName:@"com.apple.spaces"];
+    // The key is the bundle id, the value is the space uuid
+    NSDictionary *bindings = [spacesDefaults objectForKey:@"app-bindings"];
+    return bindings;
+}
+
 - (NSDictionary *)currentConfig
 {
     if (![self versionCheck]) return nil;
@@ -33,21 +62,49 @@
     for (NSNumber *displayNumber in displayIDs) {
         NSString *displayNumberStr = [NSString stringWithFormat:@"%@", displayNumber];
         
-        NSMutableArray *spaces = [NSMutableArray array];
         CGDirectDisplayID displayID = [displayNumber unsignedIntValue];
-        unsigned int numSpaces = tsapi_numberOfSpacesOnDisplay(displayID);
-        for (int i=1; i<= numSpaces; i++) {
-            char *spaceUUID = (char *)tsapi_uuidForSpaceNumberOnDisplay(i, displayID);
-            if (spaceUUID) {
-                [spaces addObject:[NSString stringWithFormat:@"%s", spaceUUID]];
-                tsapi_freeString(spaceUUID);
+
+        NSArray *spaces = currentSpaceUUIDs(displayID);
+        
+        NSMutableArray *backgrounds = [NSMutableArray array];
+        for (NSArray *spaceInfo in spaces) {
+            NSString *uuid = spaceInfo[0];
+            CFStringRef uuidRef = (__bridge CFStringRef)(uuid);
+            
+            NSDictionary *info = CFBridgingRelease(DesktopPictureCopyDisplayForSpace(displayID, 0, uuidRef));
+
+            [backgrounds addObject:info];
+        }
+        
+        NSMutableDictionary *names = [NSMutableDictionary dictionary];
+        for (NSArray *spaceInfo in spaces) {
+            NSString *uuid = spaceInfo[0];
+            NSUInteger spaceNum = [spaceInfo[1] unsignedIntegerValue];
+            char *name = (char *)tsapi_customNameForSpaceNumberOnDisplay((unsigned)spaceNum, displayID);
+            if (name) {
+                names[uuid] = [NSString stringWithFormat:@"%s", name];
+                tsapi_freeString(name);
             }
         }
-        config[displayNumberStr] = spaces;
+        
+        unsigned int cols = tsapi_definedColumnsOnDisplay(displayID);
+        
+        NSDictionary *bindings = currentBindings();
+        
+        NSMutableArray *spacesArray = [NSMutableArray array];
+        for (NSArray *spaceInfo in spaces) {
+            [spacesArray addObject:spaceInfo[0]];
+        }
+        
+        NSDictionary *configDict = @{@"spaces" : spacesArray, @"backgrounds" : backgrounds, @"bindings" : bindings, @"names" : names, @"columns" : @(cols)};
+        BASpacesConfig *spacesConfig = [[BASpacesConfig alloc] initWithDictionary:configDict];
+        if (spacesConfig) config[displayNumberStr] = spacesConfig;
+        else return nil;
     }
     
     return config;
 }
+
 
 - (void)restoreConfig:(NSDictionary *)config error:(NSError **)error
 {
@@ -67,54 +124,91 @@
         }
     }
     
+    // Move our own window to space 1
+    tsapi_freeWindowList(tsapi_windowList()); // Don't need the result of this, but TS has to believe we got the windowID from it
+    NSArray *windows = [[NSApplication sharedApplication] windows];
+    NSWindow *window = [windows count] > 0 ? windows[0] : nil;
+    tsapi_moveWindowToSpaceOnDisplay((unsigned)window.windowNumber, 1, [displayIDs[0] intValue]);
 
-    
-    // Move the spaces
+    // move to space 1 on each display
     for (NSString *displayID in config) {
-        NSArray *spaces = config[displayID];
+        tsapi_moveToSpaceOnDisplay(1, [displayID intValue]);
+    }
+    
+    // Configure the displays with the right number of spaces
+    for (NSString *displayID in config) {
+        BASpacesConfig *spacesConfig = config[displayID];
         CGDirectDisplayID targetDisplayID = [displayID intValue];
+        // first set the columns
+        tsapi_setDefinedColumnsOnDisplay((unsigned)spacesConfig.columns, targetDisplayID);
+        
+        NSUInteger numSpaces = [currentSpaceUUIDs(targetDisplayID) count];
+        NSUInteger requiredSpaces = [spacesConfig.spaces count];
+        if (numSpaces < requiredSpaces) { // add
+            tsapi_addDesktopsOnDisplay((unsigned)(requiredSpaces - numSpaces), targetDisplayID);
+        } else if (numSpaces > requiredSpaces) { // remove
+            tsapi_removeDesktopsOnDisplay((unsigned)(numSpaces - requiredSpaces), targetDisplayID);
+        }
+    }
 
-        unsigned int targetPosition = 1;
-
-        for (NSString *spaceUUID in spaces) {
+    for (NSString *displayID in config) {
+        CGDirectDisplayID targetDisplayID = [displayID intValue];
+        BASpacesConfig *spacesConfig = config[displayID];
+        NSArray *originalSpaces = spacesConfig.spaces;
+        NSArray *newSpaces = currentSpaceUUIDs(targetDisplayID);
+        
+        if ([originalSpaces count] != [newSpaces count]) {
+            [BAMainViewController logMessage:[NSString stringWithFormat:@"Spaces were not created correctly, should have %ld but have %ld", [originalSpaces count], [newSpaces count]]];
+            return;
+        }
+        
+        NSDictionary *bindings = currentBindings();
+        // Add the backgrounds and apply the names
+        int i = 0;
+        for (NSString *originalUUID in originalSpaces) {
+            NSString *newSpaceUUID = newSpaces[i][0];
+            NSUInteger newSpaceNum = [newSpaces[i][1] unsignedIntegerValue];
             
-            NSDictionary *currentConfig = [self currentConfig];
+            // set the new background properties
+            if ([spacesConfig.backgrounds count] <= i) break;
+            NSDictionary *background = spacesConfig.backgrounds[i];
+            DesktopPictureSetDisplayForSpace(targetDisplayID, (__bridge CFDictionaryRef)(background), 0, 0, (__bridge CFStringRef)(newSpaceUUID));
             
-            // Prepare a lookup for which display each space is currently on,
-            // and which number it is
-            NSMutableDictionary *spaceDisplays = [NSMutableDictionary dictionary];
-            NSMutableDictionary *spacePositions = [NSMutableDictionary dictionary];
-            for (NSString *displayID in currentConfig) {
-                NSArray *spaces = currentConfig[displayID];
-                
-                unsigned int position = 1;
-                
-                for (NSString *spaceUUID in spaces) {
-                    spaceDisplays[spaceUUID] = @([displayID intValue]);
-                    spacePositions[spaceUUID] = @(position);
-                    position++;
+            // set the name
+            NSString *name = spacesConfig.names[originalUUID];
+            
+            if (name) {
+                tsapi_setNameForSpaceOnDisplay((unsigned)newSpaceNum, (char *)[name UTF8String], targetDisplayID);
+            } else {
+                tsapi_setNameForSpaceOnDisplay((unsigned)newSpaceNum, NULL, targetDisplayID);
+            }
+            
+            // set the app bindings
+            for (NSString *originalBundleID in spacesConfig.bindings) {
+                NSString *originalBindingUUID = spacesConfig.bindings[originalBundleID];
+                if ([originalBindingUUID isEqualToString:originalUUID]) {
+                    BOOL found = NO;
+                    for (NSString *curBundleID in bindings) {
+                        if ([curBundleID isEqualToString:originalBundleID]) {
+                            found = YES;
+                            if ([bindings[curBundleID] isEqualToString:spacesConfig.bindings[originalBundleID]]) {
+                                // nothing to do
+                            } else {
+                                // assign new desktop uuid
+                                tsapi_bindAppToSpace((char *)[curBundleID UTF8String], (char *)[newSpaceUUID UTF8String]);
+                            }
+                        }
+                    }
+                    
+                    // if not found in the current bindings, add it
+                    if (!found) {
+                        tsapi_bindAppToSpace((char *)[originalBundleID UTF8String], (char *)[newSpaceUUID UTF8String]);
+                    }
                 }
             }
             
-            NSNumber *fromDisplayNumber = spaceDisplays[spaceUUID];
-            NSNumber *fromPosition = spacePositions[spaceUUID];
-            if (!fromDisplayNumber || !fromPosition) {
-                [BAMainViewController logMessage:[NSString stringWithFormat:@"Space %@ does not exist", spaceUUID]];
-                continue;
-            }
-            
-            CGDirectDisplayID fromDisplayID = [fromDisplayNumber unsignedIntValue];
-            if (fromDisplayID != targetDisplayID) {
-                unsigned int currentSpace = tsapi_currentSpaceNumberOnDisplay(fromDisplayID);
-                if (currentSpace == [fromPosition unsignedIntValue]) {
-                    [BAMainViewController logMessage:@"Can't move current space"];
-                } else {
-                    [BAMainViewController logMessage:[NSString stringWithFormat:@"Moving space %@ from display %d to display %d position %d", spaceUUID, fromDisplayID, targetDisplayID, targetPosition]];
-                    BOOL result = tsapi_moveSpaceOnDisplayToPositionOnDisplay([fromPosition unsignedIntValue], fromDisplayID, targetPosition, targetDisplayID);
-                    if (!result) [BAMainViewController logMessage:@"Move failed"];
-                }
-            }
-            targetPosition++;
+            // extra bindings in the current setup are not removed
+            i++;
         }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 #import "BAAppDelegate.h"
+#import "private.h"
 
 @implementation BAAppDelegate
 
