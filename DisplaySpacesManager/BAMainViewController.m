@@ -13,14 +13,22 @@
 #import "BATotalSpaces.h"
 #import "BALogView.h"
 
+NSString *const kPreferenceRestoreAutomaticallyOnDisplayChange = @"restoreAutomaticallyOnDisplayChange";
+
 @implementation BAMainViewController
 
 static BAMainViewController *mainController;
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
-    mainController = self;
-    return [super initWithCoder:aDecoder];
+    self = [super initWithCoder:coder];
+    if (self) {
+        mainController = self;
+        
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        [defaultCenter addObserver:self selector:@selector(displaysChanged) name:kNotificationDisplayReconfig object:nil];
+    }
+    return self;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
@@ -162,6 +170,39 @@ static BAMainViewController *mainController;
     }
     
     [self.configsTable reloadData];
+}
+
+- (BOOL)restoreAutomaticallyOnDisplayChange
+{
+    NSUserDefaultsController *defaultsController = [NSUserDefaultsController sharedUserDefaultsController];
+    NSUserDefaults *defaults = [defaultsController defaults];
+    return [defaults boolForKey:kPreferenceRestoreAutomaticallyOnDisplayChange];
+}
+
+- (void)displaysChanged
+{
+    if (![self restoreAutomaticallyOnDisplayChange]) return;
+    
+    [self.class logMessage:@"Displays changed"];
+    NSArray *names = [[BASpacesConfigs instance] configNames];
+    for (NSString *name in names) {
+        NSDictionary *selectedConfig = [[BASpacesConfigs instance] configWithName:name];
+
+        NSError *error = nil;
+        
+        if (![[BATotalSpaces instance] configCanBeRestored:selectedConfig error:&error]) continue;
+        
+        [self.class logMessage:[NSString stringWithFormat:@"Config %@ matches displays, restoring it", name]];
+        
+        [[BATotalSpaces instance] restoreConfig:selectedConfig error:&error];
+    
+        if (error) {
+            [self.logView addMessage:[error localizedDescription]];
+        } else {
+            [BAMainViewController logMessage:@"Restored"];
+            break;
+        }
+    }
 }
 
 + (void)logMessage:(NSString *)message

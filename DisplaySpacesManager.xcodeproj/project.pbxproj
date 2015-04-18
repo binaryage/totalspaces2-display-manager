@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A302D811A7BBED400086599 /* libtotalspaces2api.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A302D801A7BBED400086599 /* libtotalspaces2api.dylib */; };
 		3A302D821A7BBEDB00086599 /* libtotalspaces2api.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3A302D801A7BBED400086599 /* libtotalspaces2api.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		3A5E90F31AE28E3300C78DB7 /* BAMostRecentAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E90F21AE28E3300C78DB7 /* BAMostRecentAsync.m */; };
 		3A866E39191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
 		3A866E3A191D289D00D8AD11 /* BALogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A866E38191D289D00D8AD11 /* BALogView.m */; };
 		3ACF23171902BBD4004E4B91 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ACF23161902BBD4004E4B91 /* Cocoa.framework */; };
@@ -53,6 +54,8 @@
 
 /* Begin PBXFileReference section */
 		3A302D801A7BBED400086599 /* libtotalspaces2api.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtotalspaces2api.dylib; sourceTree = "<group>"; };
+		3A5E90F11AE28E3300C78DB7 /* BAMostRecentAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAMostRecentAsync.h; sourceTree = "<group>"; };
+		3A5E90F21AE28E3300C78DB7 /* BAMostRecentAsync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAMostRecentAsync.m; sourceTree = "<group>"; };
 		3A866E32191D068A00D8AD11 /* TSLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TSLib.h; sourceTree = "<group>"; };
 		3A866E37191D289D00D8AD11 /* BALogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BALogView.h; sourceTree = "<group>"; };
 		3A866E38191D289D00D8AD11 /* BALogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BALogView.m; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 				3ACF235B1903D926004E4B91 /* BASpacesConfigs.m */,
 				3AFD390A1A66B1440021E4D5 /* BASpacesConfig.h */,
 				3AFD390B1A66B1440021E4D5 /* BASpacesConfig.m */,
+				3A5E90F11AE28E3300C78DB7 /* BAMostRecentAsync.h */,
+				3A5E90F21AE28E3300C78DB7 /* BAMostRecentAsync.m */,
 				3AFD39091A6459000021E4D5 /* private.h */,
 				3ACF232B1902BBD4004E4B91 /* MainMenu.xib */,
 				3ACF232E1902BBD4004E4B91 /* Images.xcassets */,
@@ -322,6 +327,7 @@
 				3ACF23231902BBD4004E4B91 /* main.m in Sources */,
 				3ACF232A1902BBD4004E4B91 /* BAAppDelegate.m in Sources */,
 				3ACF23591902D5A7004E4B91 /* BAMainViewController.m in Sources */,
+				3A5E90F31AE28E3300C78DB7 /* BAMostRecentAsync.m in Sources */,
 				3ACF235C1903D926004E4B91 /* BASpacesConfigs.m in Sources */,
 				3A866E39191D289D00D8AD11 /* BALogView.m in Sources */,
 				3AFD390C1A66B1440021E4D5 /* BASpacesConfig.m in Sources */,

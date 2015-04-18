@@ -14,6 +14,8 @@
 
 - (NSDictionary *)currentConfig;
 
+- (BOOL)configCanBeRestored:(NSDictionary *)config error:(NSError **)error;
+
 - (void)restoreConfig:(NSDictionary *)config error:(NSError **)error;
 
 @end

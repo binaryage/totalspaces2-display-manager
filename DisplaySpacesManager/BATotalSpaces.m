@@ -105,21 +105,20 @@ NSDictionary *currentBindings()
     return config;
 }
 
-
-- (void)restoreConfig:(NSDictionary *)config error:(NSError **)error
+- (BOOL)configCanBeRestored:(NSDictionary *)config error:(NSError **)error
 {
     if (![self versionCheck]) {
         *error = [NSError errorWithDomain:@"com.binaryage.DisplaySpacesManager" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Cannot continue with restore", nil)}];
-        return;
+        return NO;
     }
-
+    
     NSArray *displayIDs = [self displayIDs];
-
+    
     if (displayIDs.count != config.count) {
         *error = [NSError errorWithDomain:@"com.binaryage.DisplaySpacesManager" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"This config has a different number of displays than currently attached", nil)}];
-        return;
+        return NO;
     }
-
+    
     // Check that all the required displays are currently attached
     for (NSString *displayID in config) {
         if ([displayIDs indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -128,10 +127,19 @@ NSDictionary *currentBindings()
             if (error) {
                 *error = [NSError errorWithDomain:@"com.binaryage.DisplaySpacesManager" code:1 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Display not found, this config is for different displays", nil)}];
             }
-            return;
+            return NO;
         }
     }
+
+    return YES;
+}
+
+- (void)restoreConfig:(NSDictionary *)config error:(NSError **)error
+{
+    if (![self configCanBeRestored:config error:error]) return;
     
+    NSArray *displayIDs = [self displayIDs];
+
     // Move our own window to space 1
     tsapi_freeWindowList(tsapi_windowList()); // Don't need the result of this, but TS has to believe we got the windowID from it
     NSArray *windows = [[NSApplication sharedApplication] windows];

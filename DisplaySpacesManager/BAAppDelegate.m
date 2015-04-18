@@ -8,12 +8,19 @@
 
 #import "BAAppDelegate.h"
 #import "private.h"
+#import "BAMostRecentAsync.h"
+
+NSString *const kNotificationDisplayReconfig = @"displayReconfig";
 
 @implementation BAAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter addObserver: self
+                      selector: @selector(displayReconfiguration:)
+                          name: NSApplicationDidChangeScreenParametersNotification
+                        object: nil];
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
@@ -23,5 +30,11 @@
     return NO;
 }
 
+- (void)displayReconfiguration:(NSNotification *)notification
+{
+    [BAMostRecentAsync executeMostRecentAfter:1 identifier:displayReconfigurationIdentifier block:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationDisplayReconfig object:self];
+    }];
+}
 
 @end
