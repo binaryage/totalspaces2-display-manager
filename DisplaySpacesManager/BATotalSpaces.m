@@ -212,14 +212,14 @@ NSDictionary *currentBindings()
                                 // nothing to do
                             } else {
                                 // assign new desktop uuid
-                                tsapi_bindAppToSpace((char *)[curBundleID UTF8String], (char *)[newSpaceUUID UTF8String]);
+                                tsapi_bindAppToSpace((char *)[[curBundleID lowercaseString] UTF8String], (char *)[newSpaceUUID UTF8String]);
                             }
                         }
                     }
                     
                     // if not found in the current bindings, add it
                     if (!found) {
-                        tsapi_bindAppToSpace((char *)[originalBundleID UTF8String], (char *)[newSpaceUUID UTF8String]);
+                        tsapi_bindAppToSpace((char *)[[originalBundleID lowercaseString] UTF8String], (char *)[newSpaceUUID UTF8String]);
                     }
                 }
             }
