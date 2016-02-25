@@ -49,6 +49,7 @@ NSDictionary *currentBindings()
     NSDictionary *spacesDefaults = [standardDefaults persistentDomainForName:@"com.apple.spaces"];
     // The key is the bundle id, the value is the space uuid
     NSDictionary *bindings = [spacesDefaults objectForKey:@"app-bindings"];
+    if (!bindings) bindings = @{};
     return bindings;
 }
 
