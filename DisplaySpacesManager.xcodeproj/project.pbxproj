@@ -257,6 +257,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Binaryage;
 				TargetAttributes = {
+					3ACF23121902BBD4004E4B91 = {
+						DevelopmentTeam = ATQ7JK2L54;
+					};
 					3ACF23331902BBD4004E4B91 = {
 						TestTargetID = 3ACF23121902BBD4004E4B91;
 					};
@@ -464,6 +467,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DisplaySpacesManager/DisplaySpacesManager-Prefix.pch";
@@ -482,6 +486,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DisplaySpacesManager/DisplaySpacesManager-Prefix.pch";
